@@ -35,11 +35,20 @@ import Redis from 'ioredis';
     {
       provide: 'REDIS_CLIENT',
       useFactory: () => {
-        if (process.env.REDIS_URL) {
-          return new Redis(process.env.REDIS_URL);
+        const redisUrl = process.env.REDIS_URL;
+        const redisHost = process.env.REDIS_HOST;
+
+        // If no Redis config is provided, return null (Redis is optional)
+        if (!redisUrl && !redisHost) {
+          console.warn('⚠️  No Redis configuration found. Running without Redis (DB-only mode).');
+          return null;
+        }
+
+        if (redisUrl) {
+          return new Redis(redisUrl);
         }
         return new Redis({
-          host: process.env.REDIS_HOST || 'localhost',
+          host: redisHost || 'localhost',
           port: parseInt(process.env.REDIS_PORT || '6379', 10),
         });
       },
