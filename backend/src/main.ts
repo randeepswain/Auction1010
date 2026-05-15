@@ -5,8 +5,11 @@ import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const corsOrigin = process.env.CORS_ORIGIN;
+  const sanitizedOrigin = corsOrigin?.endsWith('/') ? corsOrigin.slice(0, -1) : corsOrigin;
+
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || true, // 'true' allows all in development
+    origin: sanitizedOrigin || true,
     credentials: true,
   });
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
