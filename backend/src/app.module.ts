@@ -24,7 +24,7 @@ import Redis from 'ioredis';
       password: process.env.POSTGRES_PASSWORD || 'secretpassword',
       database: process.env.POSTGRES_DB || 'auction_db',
       entities: [User, Auction, Bid],
-      synchronize: process.env.NODE_ENV !== 'production', // Disable auto-sync in production
+      synchronize: true, // Enable for now to auto-create tables on Render
     }),
     BidsModule, 
     EventsModule, UsersModule, AuthModule, AuctionsModule

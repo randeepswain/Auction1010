@@ -21,15 +21,18 @@ const VALORANT_SKINS = [
 async function resetAndSeed() {
   const connection = await createConnection({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'auction_user',
-    password: 'secretpassword',
-    database: 'auction_db',
+    url: process.env.DATABASE_URL,
+    host: process.env.POSTGRES_HOST || 'localhost',
+    port: parseInt(process.env.POSTGRES_PORT || '5432'),
+    username: process.env.POSTGRES_USER || 'auction_user',
+    password: process.env.POSTGRES_PASSWORD || 'secretpassword',
+    database: process.env.POSTGRES_DB || 'auction_db',
     entities: [User, Auction, Bid],
+    synchronize: true,
   });
 
-  const redis = new Redis({ host: 'localhost', port: 6379 });
+  const redisUrl = process.env.REDIS_URL;
+  const redis = redisUrl ? new Redis(redisUrl) : null;
 
   console.log('Clearing database and Redis...');
   const bidsRepo = connection.getRepository(Bid);
@@ -43,8 +46,12 @@ async function resetAndSeed() {
   if (allAuctions.length > 0) await auctionsRepo.remove(allAuctions);
   console.log('Auctions cleared.');
 
-  await redis.flushall();
-  console.log('Redis flushed.\n');
+  if (redis) {
+    await redis.flushall();
+    console.log('Redis flushed.\n');
+  } else {
+    console.log('Skipping Redis flush (no Redis configured).\n');
+  }
 
   for (let i = 0; i < VALORANT_SKINS.length; i++) {
     const skin = VALORANT_SKINS[i];
@@ -61,14 +68,14 @@ async function resetAndSeed() {
       image_url: skin.image_url
     });
     const saved = await auctionsRepo.save(auction);
-    if (status === 'active') {
+    if (status === 'active' && redis) {
       await redis.hset(`auction:${saved.id}`, { highest_bid: skin.starting_bid, highest_bidder_id: '' });
     }
     console.log(`✅ [${status}] ${skin.title}`);
   }
 
   console.log('\n🎯 Database seeded with 10 Valorant Gun Skins!');
-  await redis.quit();
+  if (redis) await redis.quit();
   await connection.close();
   process.exit(0);
 }
