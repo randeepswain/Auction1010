@@ -5,11 +5,11 @@ import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  const corsOrigin = process.env.CORS_ORIGIN;
-  const sanitizedOrigin = corsOrigin?.endsWith('/') ? corsOrigin.slice(0, -1) : corsOrigin;
+  const corsOrigin = process.env.CORS_ORIGIN?.trim();
+  const sanitizedOrigin = corsOrigin?.replace(/\/+$/, '');
 
   app.enableCors({
-    origin: sanitizedOrigin || true,
+    origin: sanitizedOrigin ? [sanitizedOrigin, `${sanitizedOrigin}/`] : true,
     credentials: true,
   });
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
