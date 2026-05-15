@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Clock, TrendingUp, History, Activity, ChevronRight, LogOut } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
-import { getApiUrl } from '@/utils/api';
+import { getApiUrl, getImagePath } from '@/utils/api';
 
 interface Auction {
   id: string;
