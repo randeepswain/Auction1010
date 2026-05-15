@@ -1,0 +1,30 @@
+﻿Altitude Odin|https://media.valorant-api.com/weaponskins/89be9866-4807-6235-2a95-499cd23828df/displayicon.png
+Xenohunter Odin|https://media.valorant-api.com/weaponskins/94c085e6-48e1-c879-2552-88bf7850c5a8/displayicon.png
+Neptune Odin|https://media.valorant-api.com/weaponskins/a67c2daa-4f4d-1af0-0ff4-6fafde471776/displayicon.png
+Heartbreaker Odin|https://media.valorant-api.com/weaponskins/d6586a38-4bf4-1c35-22c9-029aee5942bb/displayicon.png
+Tactiplay Odin|https://media.valorant-api.com/weaponskins/e02d6b2c-4e2e-a5f1-6bb8-38ac74485d7e/displayicon.png
+Rune Stone Odin|https://media.valorant-api.com/weaponskins/abef8114-4495-6da7-2ade-02bd0f014fd3/displayicon.png
+Comet Odin|https://media.valorant-api.com/weaponskins/ba2592f7-45c8-8d25-1442-83971f3d95dd/displayicon.png
+Doom Wing Odin|https://media.valorant-api.com/weaponskins/729f0ef1-4c70-dc39-3fe0-9d887a320070/displayicon.png
+Doombringer Odin|https://media.valorant-api.com/weaponskins/fcba924d-41f6-7a92-f904-13b0fcbc2bdd/displayicon.png
+Glitchpop Odin|https://media.valorant-api.com/weaponskins/97af88e4-4176-9fa3-4a26-57919443dab7/displayicon.png
+Topotek Odin|https://media.valorant-api.com/weaponskins/85c76090-4de5-3a3a-a763-f4a7b779e8ed/displayicon.png
+Dolmir's Revenge Odin|https://media.valorant-api.com/weaponskins/79ffb1d7-405d-1b96-6071-e7a804555cd7/displayicon.png
+Nanobreak Odin|https://media.valorant-api.com/weaponskins/9773ba41-4512-3706-321f-c3b826754db9/displayicon.png
+.EXE Odin|https://media.valorant-api.com/weaponskins/cda41b87-4d3a-c17c-5f6d-8990cc9c5efb/displayicon.png
+Neo Frontier Odin|https://media.valorant-api.com/weaponskins/bd647d56-4542-19cd-e1ed-4fb429c78cf9/displayicon.png
+Prime//2.0 Odin|https://media.valorant-api.com/weaponskins/157bcebe-484d-82e2-2a60-c8b4b11197ea/displayicon.png
+Prism III Odin|https://media.valorant-api.com/weaponskins/72e724e9-4ba4-2d12-ce1a-8db1a528b9d3/displayicon.png
+Smite Odin|https://media.valorant-api.com/weaponskins/9e648b20-4ed5-1f34-87a9-979cbe9a958a/displayicon.png
+Coalition: Cobra Odin|https://media.valorant-api.com/weaponskins/5c13101a-45e4-d568-aade-d6b0dadedcd1/displayicon.png
+Insidious Odin|https://media.valorant-api.com/weaponskins/ca1a3ade-4809-35ea-cd96-b687149f4945/displayicon.png
+Lightwave Odin|https://media.valorant-api.com/weaponskins/57523cf0-4574-968b-9f17-168e3bdb6d0d/displayicon.png
+Sensation Odin|https://media.valorant-api.com/weaponskins/65baa0cd-42ec-f99d-54a0-338d795b5824/displayicon.png
+Orion Odin|https://media.valorant-api.com/weaponskins/3bb7e1cd-4774-3b84-ab13-3fa8ca182f20/displayicon.png
+Sentinels of Light Odin|https://media.valorant-api.com/weaponskins/67fb338a-4b21-ed70-7c2a-46bef4742b4f/displayicon.png
+Schema Odin|https://media.valorant-api.com/weaponskins/02cce94a-4dc2-d11a-33cf-d8aba4e36202/displayicon.png
+Lycan's Bane Odin|https://media.valorant-api.com/weaponskins/468fdc95-443f-f1c2-bd22-fc8e1af0de39/displayicon.png
+Reaver Odin|https://media.valorant-api.com/weaponskins/8dda01a6-4237-f430-ac70-c3ba677963e9/displayicon.png
+Sovereign Odin|https://media.valorant-api.com/weaponskins/a7995818-409f-c79b-20b7-28ad642f3135/displayicon.png
+Evori Dreamwings Odin|https://media.valorant-api.com/weaponskins/fa1c05fd-49fc-ad93-17d8-f0aaf11874cd/displayicon.png
+Freehand Odin|https://media.valorant-api.com/weaponskins/14796249-4f23-9d52-4ea1-d8878099c01e/displayicon.png
