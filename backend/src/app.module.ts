@@ -25,6 +25,7 @@ import Redis from 'ioredis';
       database: process.env.POSTGRES_DB || 'auction_db',
       entities: [User, Auction, Bid],
       synchronize: true, // Enable for now to auto-create tables on Render
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
     }),
     BidsModule, 
     EventsModule, UsersModule, AuthModule, AuctionsModule
