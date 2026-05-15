@@ -20,7 +20,7 @@ export class User {
   @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
   total_spend: number;
 
-  @Column({ default: 'pending' })
+  @Column({ default: 'approved' })
   status: string; // 'pending' | 'approved' | 'banned'
 
   @Column({ type: 'int', nullable: true })
