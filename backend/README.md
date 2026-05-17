@@ -1,98 +1,125 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🚀 NestJS 11 Gateway API — Valorant Auction Platform
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A production-grade, highly-concurrent NestJS API server designed to handle real-time Valorant skin auctions. It integrates robust WebSocket connections for bid synchronicity and Redis-based distributed locking to guarantee database integrity under heavy loads.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## ⚡ Core Capabilities
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **High-Concurrency Bid Locking (Redlock)**: Placements of competitive bids are wrapped in distributed Redis locks. This prevents bid race conditions, double-debits, or timing attacks on hot items.
+- **Real-Time Broadcasts**: WebSockets via `Socket.io` instantly push up-to-date bid statuses, transaction events, and active auction tallies to all connected client browsers.
+- **Secured Authentication**: Robust identity assurance built on JWT-signed tokens and secure custom Guard filters (Admin and User role scopes).
+- **Dual database architecture**: Structured operational states reside in **PostgreSQL** (TypeORM), while audit logs and transient event trails are channeled to **MongoDB**.
 
-## Project setup
+---
 
-```bash
-$ npm install
+## 🛠️ Technology Stack
+
+- **Framework**: NestJS `^11.0.1` (TypeScript)
+- **Object Relational Mapper**: TypeORM `^0.3.29`
+- **Data Stores**: PostgreSQL (`pg ^8.20`), Redis (`ioredis ^5.10`), MongoDB
+- **Distributed Lock**: Redlock `^5.0.0-beta.2`
+- **Real-time Gateway**: `@nestjs/platform-socket.io` (Socket.io `^4.8.3`)
+- **Authentication**: Passport JWT (`@nestjs/jwt ^11.0.2`, `@nestjs/passport ^11.0.5`)
+- **Validators**: `class-validator` & `class-transformer`
+
+---
+
+## 📂 Source Code Structure
+
+```
+backend/
+├── src/
+│   ├── auctions/          # Auction item modules, services, & REST routes
+│   ├── auth/              # JWT strategy, password encryptions, & role guards
+│   ├── bids/              # Bidding logic, transaction, & Redlock orchestration
+│   ├── events/            # WebSockets Gateway handling real-time push events
+│   ├── users/             # User profiles, statistics, & verification states
+│   ├── app.module.ts      # Core parent Nest module loading config systems
+│   ├── approve-users.ts   # Helper CLI script to toggle user approvals
+│   ├── fix-image.ts       # Database repair utility script for skin assets
+│   ├── fix-roles.ts       # Database repair utility script for user admin privileges
+│   ├── main.ts            # Entrypoint bootstrap initializing Nest application
+│   ├── reset.ts           # Clean & drop operational DB collections
+│   └── seed-admin.ts      # CLI seed runner generating admin credential systems
+├── test/                  # Automated integration & End-to-End Jest tests
+├── eslint.config.mjs      # Linter configurations
+├── nest-cli.json          # Nest build & path configurations
+└── tsconfig.json          # TS compiler specifications
 ```
 
-## Compile and run the project
+---
 
+## 🚀 Getting Started
+
+### 1. Prerequisite Installations
+- Node.js (v20 or v22)
+- Running local instances of PostgreSQL, Redis, and MongoDB (or through root Docker Compose setup).
+
+### 2. Set Up Environment Config
+Copy the example environment:
 ```bash
-# development
-$ npm run start
+cp .env.example .env
+```
+Update configuration parameters in `.env` to line up with your active databases:
+```env
+PORT=3001
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=auction_user
+POSTGRES_PASSWORD=secretpassword
+POSTGRES_DB=auction_db
 
-# watch mode
-$ npm run start:dev
+REDIS_HOST=localhost
+REDIS_PORT=6379
 
-# production mode
-$ npm run start:prod
+MONGO_URI=mongodb://localhost:27017/iob_db
+JWT_SECRET=your-super-secret-key-change-in-prod
 ```
 
-## Run tests
-
+### 3. Install NPM Modules
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+### 4. Database Setup & Seeding
+Reset databases and bootstrap initial Valorant skins:
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Seed standard skins and upcoming auctions
+npm run seed
+
+# Seed default admin user credentials (admin00/secretpassword)
+npm run seed-admin
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 5. Launch the Server
+```bash
+# Development (with active file watch reloading)
+npm run start:dev
 
-## Resources
+# Production build and run
+npm run build
+npm run start:prod
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## 🛡️ Concurrency Guard Implementation Details
 
-## Support
+When multiple players place a bid in the same millisecond, the bidding controller requests a distributed lock on the auction entity's key using Redis Redlock:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```typescript
+const lockKey = `locks:auction:${auctionId}`;
+const lock = await redlock.acquire([lockKey], 1000); // 1-second lock lease
 
-## Stay in touch
+try {
+  // 1. Fetch current auction price inside isolation block
+  // 2. Validate that the new bid is higher than current maximum
+  // 3. Save new bid & update auction high-bid details
+  // 4. Dispatch WebSocket refresh broadcast
+} finally {
+  await lock.release();
+}
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This guarantees flawless auction logic that is 100% immune to distributed double-spending or race conditions.
