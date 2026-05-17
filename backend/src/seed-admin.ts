@@ -6,9 +6,15 @@ import * as bcrypt from 'bcrypt';
 
 async function seedAdmin() {
   const connection = await createConnection({
-    type: 'postgres', host: 'localhost', port: 5432,
-    username: 'auction_user', password: 'secretpassword', database: 'auction_db',
+    type: 'postgres',
+    url: process.env.DATABASE_URL,
+    host: process.env.POSTGRES_HOST || 'localhost',
+    port: parseInt(process.env.POSTGRES_PORT || '5432'),
+    username: process.env.POSTGRES_USER || 'auction_user',
+    password: process.env.POSTGRES_PASSWORD || 'secretpassword',
+    database: process.env.POSTGRES_DB || 'auction_db',
     entities: [User, Auction, Bid],
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   });
 
   const usersRepo = connection.getRepository(User);
