@@ -10,21 +10,6 @@ This ecosystem is composed of a **Next.js 16 + React 19** frontend, a **NestJS 1
 
 Our services are partitioned into specialized microservices to optimize scale, maintainability, and resource utilization:
 
-```mermaid
-graph TD
-    Client["💻 Client (Next.js 16 + React 19)"]
-    API["🚀 API Server (NestJS 11)"]
-    AIService["🤖 AI Service (FastAPI)"]
-    DB[("🐘 PostgreSQL (TypeORM)")]
-    Cache[("🔴 Redis (Redlock Concurrency)")]
-    NoSQL[("🍃 MongoDB (Event/Log storage)")]
-
-    Client -->|HTTP / WebSockets| API
-    API -->|Evaluate Fraud & Suggest Prices| AIService
-    API -->|Data Persistence| DB
-    API -->|Distributed Lock (Redlock)| Cache
-    API -->|Secondary Log Store| NoSQL
-```
 
 ### 💻 Frontend Client
 - **Framework**: [Next.js 16.2](https://nextjs.org/) (App Router, React 19.2)
